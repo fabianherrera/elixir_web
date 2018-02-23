@@ -1,0 +1,20 @@
+<html>
+  <head>
+    <title>Cowboy Elixir Web Server Example</title>
+
+  </head>
+  <body>
+    <div id='main'>
+      <h1>Cowboy Web Server</h1>
+      <p>
+        This file is served from <code>priv/index.html</code> 
+        because of this route in <code>web_server.ex</code>:
+      </p>
+      <pre>
+         {"/", :cowboy_static, {:priv_file,  :web_server, "index.html"}}
+      </pre>
+
+    </div>
+  </body>
+</html>
+ 
