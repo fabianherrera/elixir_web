@@ -1,18 +1,5 @@
 defmodule WebServer do
-  @moduledoc """
-  Documentation for WebServer.
-  """
 
-  @doc """
-  Hello world.
-
-  ## Examples
-
-      iex> WebServer.hello
-      :world
-
-  """
-  defmodule CowboyElixirExample do
 
     @doc """
     Start up a cowboy http server.  The start_http method of cowboy takes
@@ -33,7 +20,7 @@ defmodule WebServer do
     SEE ALSO: http://ninenines.eu/docs/en/cowboy/1.0/guide/getting_started/
     """
     def start(_type, _args) do
-      dispatch_config = build_dispatch_config
+      dispatch_config = build_dispatch_config()
       { :ok, _ } = :cowboy.start_http(:http,
         100,
         [{:port, 8080}],
@@ -85,7 +72,7 @@ defmodule WebServer do
             #   :cowboy_elixir_example -- application name.  This is used to search for
             #                             the path that priv/ exists in.
             #   "index.html            -- filename to serve
-            {"/", :cowboy_static, {:priv_file, :cowboy_elixir_example, "index.html"}},
+            {"/", :cowboy_static, {:priv_file, :web_server, "index.html"}},
 
 
             # Serve all static files in a directory.
@@ -97,18 +84,18 @@ defmodule WebServer do
             #   :cowboy_elixir_example -- application name.  This is used to search for
             #                             the path that priv/ exists in.
             #   "static_files"         -- directory to look for files in
-            {"/static/[...]", :cowboy_static, {:priv_dir,  :cowboy_elixir_example, "static_files"}},
+            {"/static/[...]", :cowboy_static, {:priv_dir, :web_server, "static_files"}},
 
             # Serve a dynamic page with a custom handler
             # When a request is sent to "/dynamic", pass the request to the custom handler
             # defined in module DynamicPageHandler.
-            {"/dynamic", DynamicPageHandler, []},
+            {"/dynamic", HandlerDynamic, []},
 
             # Serve websocket requests.
-            {"/websocket", WebsocketHandler, []}
+            #{"/websocket", WebsocketHandler, []}
           ]}
       ])
     end
   end
 
-end
+
